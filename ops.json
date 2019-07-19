@@ -1,0 +1,8 @@
+[
+    {
+      "uuid": "c9a20e74-4f47-49e7-ab73-7963a2156cc9",
+      "name": "TakeSiege",
+      "level": 4,
+      "bypassesPlayerLimit": false
+    }
+]

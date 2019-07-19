@@ -1,0 +1,7 @@
+backup-cycle-minutes: 5
+limit:
+  limit_backups: 5
+  delete-older-backups-for-new: true
+backup-location: /server/plugins/AutoWorldBackup
+worlds-to-backup:
+- world
