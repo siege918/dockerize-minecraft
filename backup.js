@@ -38,8 +38,8 @@ function markFileAsLatest(bucketName, fileName) {
 }
 
 module.exports = {
-    init: function ( { accessKeyID, secretAccessKey } ) {
-        S3 = new AWS.S3({ region: "us-west-2", credentials: new AWS.Credentials(accessKeyID, secretAccessKey) });
+    init: function ( { accessKeyID, secretAccessKey, region } ) {
+        S3 = new AWS.S3({ region, credentials: new AWS.Credentials(accessKeyID, secretAccessKey) });
     },
     backup: function (bucketName, minecraftServerProcess) {
         log("Backup process started")

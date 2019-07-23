@@ -7,8 +7,9 @@ var accessKeyID = process.env['MINECRAFT_S3_accessKeyID'];
 var secretAccessKey = process.env['MINECRAFT_S3_secretAccessKey'];
 
 var bucketName = process.env['MINECRAFT_S3_bucketName'];
+var region = process.env['MINECRAFT_S3_region'] || 'us-west-2';
 
-backup.init( { accessKeyID, secretAccessKey } );
+backup.init( { accessKeyID, secretAccessKey, region } );
 
 backup.restore(bucketName, () => {
     var minecraftServerProcess = spawn('java', [
