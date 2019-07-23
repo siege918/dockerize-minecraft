@@ -1,0 +1,24 @@
+{
+  "name": "siege-dockerized-minecraft",
+  "version": "0.0.1",
+  "description": "Containerized app to load a backed up Spigot server configuration, with the latest version of Spigot, and run the server. Also automatically backs up the config files.",
+  "main": "minecraft.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siege918/dockerize-minecraft.git"
+  },
+  "author": "siege",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siege918/dockerize-minecraft/issues"
+  },
+  "homepage": "https://github.com/siege918/dockerize-minecraft#readme",
+  "dependencies": {
+    "archiver": "^3.0.3",
+    "aws-sdk": "^2.496.0",
+    "unzip-stream": "^0.3.0"
+  }
+}
