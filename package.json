@@ -19,6 +19,7 @@
   "dependencies": {
     "archiver": "^3.0.3",
     "aws-sdk": "^2.496.0",
-    "unzip-stream": "^0.3.0"
+    "unzip-stream": "^0.3.0",
+    "siegebot-client": "siege918/siegebot-client#v1.1"
   }
 }
