@@ -10,10 +10,8 @@ var bucketName = process.env['MINECRAFT_S3_bucketName'];
 var region = process.env['MINECRAFT_S3_region'] || 'us-west-2';
 
 var discordToken = process.env['MINECRAFT_DISCORD_token'];
-
-if (discordToken) {
-    discord.init(discordToken);
-}
+var outputChannelId = process.env['MINECRAFT_DISCORD_outputChannelId'];
+var adminRoleRegex = process.env['MINECRAFT_DISCORD_adminRoleRegex'];
 
 backup.init( { accessKeyID, secretAccessKey, region } );
 
@@ -36,9 +34,10 @@ backup.restore(bucketName, () => {
         (data) => { process.stderr.write(data.toString()); }
     );
 
+    if (discordToken) {
+        discord.init(discordToken, minecraftServerProcess, outputChannelId, adminRoleRegex);
+    }
+
     //Run backups hourly
     setInterval(backup.backup, 1000 * 60 * 60, bucketName, minecraftServerProcess);
-
-    //For testing, backup after one minute
-    setTimeout(backup.backup, 1000 * 60, bucketName, minecraftServerProcess);
 });
