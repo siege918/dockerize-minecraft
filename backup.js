@@ -37,6 +37,36 @@ function markFileAsLatest(bucketName, fileName) {
     });
 }
 
+function getTags(date) {
+    let tag = "MinecraftBackupType=";
+    /*
+     Backup Categories
+     Monthly - The most recent weekly backup after the 14th of the month
+     Weekly - The backup made on Sunday at 12:00AM
+     Daily - The backup made at 12:00AM daily
+     Hourly - The backup made at the top of each hour
+     Quarterhourly - Every backup
+    */
+    
+    if (date.getMinutes() / 15 === 0) {
+        if (date.getHours() === 0) {
+            if (date.getDay() === 0) {
+                if (date.getDate() / 7 === 2) {
+                    return `${tag}Monthly`;
+                }
+
+                return `${tag}Weekly`;
+            }
+
+            return `${tag}Daily`;
+        }
+
+        return `${tag}Hourly`;
+    }
+
+    return `${tag}Quarterhourly`;
+}
+
 module.exports = {
     init: function ( { accessKeyID, secretAccessKey, region } ) {
         S3 = new AWS.S3({ region, credentials: new AWS.Credentials(accessKeyID, secretAccessKey) });
@@ -69,12 +99,15 @@ module.exports = {
                     ignore: ignoredFiles
                 });
 
-                var backupName = `minecraft_backup_${new Date().toISOString()}.zip`;
+                var backupDate = new Date();
+
+                var backupName = `minecraft_backup_${backupDate.toISOString()}.zip`;
 
                 S3.upload({
                     Bucket: bucketName,
                     Key: backupName,
-                    Body: passthrough
+                    Body: passthrough,
+                    Tagging: getTags(backupDate)
                 }, function (err, data) {
                     if (err) {
                         log('[AWS] Error uploading world:');

@@ -38,6 +38,6 @@ backup.restore(bucketName, () => {
         discord.init(discordToken, minecraftServerProcess, outputChannelId, adminRoleRegex);
     }
 
-    //Run backups hourly
-    setInterval(backup.backup, 1000 * 60 * 60, bucketName, minecraftServerProcess);
+    //Run backups every 15 minutes
+    setInterval(backup.backup, 1000 * 60 * 15, bucketName, minecraftServerProcess);
 });
