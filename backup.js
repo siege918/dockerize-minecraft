@@ -48,10 +48,10 @@ function getTags(date) {
      Quarterhourly - Every backup
     */
     
-    if (date.getMinutes() / 15 === 0) {
+    if (Math.floor(date.getMinutes() / 15) === 0) {
         if (date.getHours() === 0) {
             if (date.getDay() === 0) {
-                if (date.getDate() / 7 === 2) {
+                if (Math.floor(date.getDate() / 7) === 2) {
                     return `${tag}Monthly`;
                 }
 
