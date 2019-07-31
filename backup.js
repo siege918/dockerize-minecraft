@@ -6,12 +6,14 @@ var unzip = require('unzip-stream');
 
 var ignoredFiles = [
     "backup.js",
+    "discord.js",
     "dockerfile",
     "minecraft.js",
     "node_modules",
     "node_modules/**",
     "package.json",
     "package-lock.json",
+    "siegebot-minecraft.js",
     "spigot.jar"
 ];
 
