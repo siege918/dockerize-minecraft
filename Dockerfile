@@ -4,7 +4,7 @@ RUN apk add curl git
 
 WORKDIR /buildtools
 RUN wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar \
-  && java -jar BuildTools.jar --rev 1.14.4
+  && java -jar BuildTools.jar --rev 1.15.2
 
 FROM openjdk:8-jre-alpine
 WORKDIR /server
