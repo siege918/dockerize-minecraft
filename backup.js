@@ -46,27 +46,18 @@ function getTags(date) {
      Monthly - The most recent weekly backup after the 14th of the month
      Weekly - The backup made on Sunday at 12:00AM
      Daily - The backup made at 12:00AM daily
-     Hourly - The backup made at the top of each hour
-     Quarterhourly - Every backup
     */
+
     
-    if (Math.floor(date.getMinutes() / 15) === 0) {
-        if (date.getHours() === 0) {
-            if (date.getDay() === 0) {
-                if (Math.floor(date.getDate() / 7) === 2) {
-                    return `${tag}Monthly`;
-                }
-
-                return `${tag}Weekly`;
-            }
-
-            return `${tag}Daily`;
-        }
-
-        return `${tag}Hourly`;
+    if (date.getDate() === 15) {
+        return `${tag}Monthly`;
+    }
+    
+    if (date.getDay() === 0) {
+        return `${tag}Weekly`;
     }
 
-    return `${tag}Quarterhourly`;
+    return `${tag}Daily`;
 }
 
 module.exports = {
