@@ -1,4 +1,5 @@
 var spawn = require('child_process').spawn;
+const fs = require('fs');
 var backup = require('./backup');
 var discord = require('./discord');
 
@@ -15,16 +16,28 @@ var adminRoleRegex = process.env['MINECRAFT_DISCORD_adminRoleRegex'];
 
 var Xmx = process.env['MINECRAFT_Xmx'] || '1G';
 var Xms = process.env['MINECRAFT_Xms'] || '512M';
+var serverPath = process.env['MINECRAFT_serverPath'] || '.';
 
 backup.init( { accessKeyID, secretAccessKey, region } );
 
-backup.restore(bucketName, () => {
+// If a world already exists, don't restore a backup
+if (fs.existsSync(`${serverPath}/world`)) {
+    runServer();
+} else {
+    backup.restore(bucketName, () => {
+        runServer();
+    });
+}
+
+const runServer = () => {
     var minecraftServerProcess = spawn('java', [
         `-Xmx${Xmx}`,
         `-Xms${Xms}`,
         '-jar',
-        'spigot.jar'
-    ]);
+        '/server/spigot.jar'
+    ], {
+        cwd: serverPath
+    });
 
 
     minecraftServerProcess.stdout.on(
@@ -43,4 +56,4 @@ backup.restore(bucketName, () => {
 
     //Run backups every 24 hours
     setInterval(backup.backup, 1000 * 60 * 60 * 24, bucketName, minecraftServerProcess);
-});
+}

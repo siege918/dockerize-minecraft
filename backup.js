@@ -19,6 +19,8 @@ var ignoredFiles = [
 
 var S3;
 
+var serverPath = process.env['MINECRAFT_serverPath'] || '.';
+
 function log(message) {
     console.log(`\x1b[33m[BackupScript] [${new Date().toISOString()}] ${message}\x1b[0m`);
 }
@@ -88,7 +90,7 @@ module.exports = {
                 archive.pipe(passthrough);
 
                 log(`Archiving files...`);
-                archive.glob('**', {
+                archive.glob(`${serverPath}/**`, {
                     ignore: ignoredFiles
                 });
 
@@ -147,7 +149,7 @@ module.exports = {
                     callback();
                 });
 
-                restoreStream.pipe(unzip.Extract({ path: '.' }));
+                restoreStream.pipe(unzip.Extract({ path: serverPath }));
             }
         });
     }
