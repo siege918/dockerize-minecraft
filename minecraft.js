@@ -20,15 +20,6 @@ var serverPath = process.env['MINECRAFT_serverPath'] || '.';
 
 backup.init( { accessKeyID, secretAccessKey, region } );
 
-// If a world already exists, don't restore a backup
-if (fs.existsSync(`${serverPath}/world`)) {
-    runServer();
-} else {
-    backup.restore(bucketName, () => {
-        runServer();
-    });
-}
-
 const runServer = () => {
     var minecraftServerProcess = spawn('java', [
         `-Xmx${Xmx}`,
@@ -56,4 +47,14 @@ const runServer = () => {
 
     //Run backups every 24 hours
     setInterval(backup.backup, 1000 * 60 * 60 * 24, bucketName, minecraftServerProcess);
+}
+
+
+// If a world already exists, don't restore a backup
+if (fs.existsSync(`${serverPath}/world`)) {
+    runServer();
+} else {
+    backup.restore(bucketName, () => {
+        runServer();
+    });
 }
