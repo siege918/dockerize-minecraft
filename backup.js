@@ -149,7 +149,7 @@ module.exports = {
                     callback();
                 });
 
-                restoreStream.pipe(unzip.Extract({ path: serverPath }));
+                restoreStream.pipe(unzip.Extract({ path: `${serverPath}/..` }));
             }
         });
     }
